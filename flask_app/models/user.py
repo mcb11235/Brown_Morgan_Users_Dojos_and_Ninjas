@@ -10,7 +10,7 @@ class User:
     @classmethod
     def get_all(cls):
         query = "SELECT * FROM users"
-        results = connectToMySQL('users_schema').query_db(query)
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query)
         users = []
         for user in results:
             users.append(cls(user))
@@ -19,19 +19,19 @@ class User:
     def save(cls, data ):
         query = "INSERT INTO users ( first_name , last_name , email ) VALUES ( %(fname)s , %(lname)s , %(email)s);"
         # data is a dictionary that will be passed into the save method from server.py
-        return connectToMySQL('users_schema').query_db( query, data )
+        return connectToMySQL('dojos_and_ninjas_schema').query_db( query, data )
     @classmethod
     def get_one(cls, data):
         query = "SELECT * FROM users WHERE id=%(id)s"
-        results = connectToMySQL('users_schema').query_db(query, data)
+        results = connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
         return cls(results[0])
     @classmethod
     def update(cls, data):
         print(data)
         query = "UPDATE users SET first_name=%(fname)s,last_name=%(lname)s,email=%(email)s,updated_at=NOW() WHERE id=%(id)s;"
         print(query)
-        return connectToMySQL('users_schema').query_db(query, data)
+        return connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
     @classmethod
     def destroy(cls, data):
         query = "DELETE FROM users WHERE id=%(id)s"
-        return connectToMySQL('users_schema').query_db(query, data)
+        return connectToMySQL('dojos_and_ninjas_schema').query_db(query, data)
